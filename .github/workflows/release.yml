@@ -2,8 +2,6 @@ name: Release compiled PDF
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*.*.*'
 
