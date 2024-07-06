@@ -18,6 +18,17 @@ jobs:
       with:
         root_file: resume.tex
 
+    - name: Install pdfinfo
+      run: sudo apt-get update && sudo apt-get install poppler-utils
+
+    - name: Check number of pages
+      run: |
+        PAGES=$(pdfinfo resume.pdf | grep Pages | awk '{print $2}')
+        if [ "$PAGES" -gt 1 ]; then
+          echo "PDF has $PAGES pages, which is more than 1."
+          exit 1
+        fi
+
     - name: Upload PDF file
       uses: actions/upload-artifact@v4
       with:
